@@ -228,25 +228,10 @@ let current = new TipMenu()
 // The list of all available tip menus.
 let menus = []
 
-// function list() {
-//     let msg = 'Available tip menus\n'
-//     for (let i = 0; i < menus.length; ++i) {
-//         msg += `${i+1}: `
-//         msg += menus[i].heading
-//         msg += '\n'
-//     }
-//     msg += `Active menu: ${current.heading}`
-// }
 
-function select(n) {
-    if (n < 1 || n > menus.length) {
-        notify(broadcaster, 'Invalid menu number.')
-        return
-    }
-    current = menus[n-1]
-    notify(broadcaster, `Selected menu: ${current.heading}`)
-}
-
+/*
+ * Initialize the tip menus and other settings from the setup page.
+ */
 function init() {
 
     // Styles and other settings from the setup page.
