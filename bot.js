@@ -30,7 +30,8 @@ const symbols = {
     star: '\u2605',
     rose: '\u{1f339}',
     crown: '\u{1F451}',
-    bear: '\u{1F43B}'
+    bear: '\u{1F43B}',
+    fire: '\u{1F525}'
 }
 
 const broadcaster = cb.room_slug
@@ -54,7 +55,7 @@ let separator = symbols.heart
 
 cb.settings_choices  = [
     {name:'command', type:'str', defaultValue:'/tipmenu', label:'The command users can use to see the tip menu.'},
-    {name:'separator', label:'Separator between menu items',type:'choice', choice1:'Bar', choice2:'Heart', choice3:'Diamond', choice4:'Star', choice5:'Rose', choice6:'Kiss', choice7:'Crown', defaultValue:'Bar'},
+    {name:'separator', label:'Separator between menu items',type:'choice', choice1:'Bar', choice2:'Heart', choice3:'Diamond', choice4:'Star', choice5:'Rose', choice6:'Kiss', choice7:'Crown', choice8:'Fire', defaultValue:'Bar'},
     {name:'delay', type:'int', label:'How frequently to display the tip menu in chat (in minutes)', defaultValue:1},
     {name:'limit', type:'int', label:'How many messages must be entered before the tip menu will be display.  Set to 0 to disable rate limiting', minValue:0, defaultValue:'20'},
     {name:'verbose', type:'choice', label:'Do you want to be notified when users request to view the menu?', choice1:'yes', choice2:'no', defaultValue:'yes'},
@@ -354,6 +355,22 @@ function onMessage(message) {
             return
         }
 
+        let sep = symbols[args[0]]
+        if (sep != null) {
+            // The broadcaster is changing the separators
+            separator = sep
+            current.ad = null
+            notify(broadcaster, `Menu separator changed to ${separator}`)
+            return
+        }
+        if (args[0] === 'separators') {
+
+            let items = []
+            let msg = 'Available menu separators:\n' + Object.keys(symbols).map( key => `${key}:${symbols[key]}`).join('\n')
+            notify(broadcaster, msg)
+            return
+        }
+
         // Otherwise we assume the broadcaster is selecting new menus.
         let previous = current
         current = new TipMenu()
@@ -428,4 +445,4 @@ cb.onTip(onTip)
 cb.onMessage(onMessage)
 cb.onEnter(onEnter)
 
-init()
+cb.setTimeout(init, 200)
