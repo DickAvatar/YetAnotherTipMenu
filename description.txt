@@ -4,7 +4,7 @@ v1.0.0
 
 YATM addresses several problems with most tip menu apps:
 
-1. YATM will not spam your chat room. The YATM bot watches for messages in chat and will only post a new tip menu if a certain number of messages have been posted.
+1. YATM will not spam your chat room. The YATM bot watches for messages in chat and will only post a new tip menu if a certain number of messages have been posted (the rate limit).
 
 2. YATM gracefully handles mutliple items with the same price. If a member tips and there is more than one item available for that price the member will be sent a private notification asking them to tell the broadcaster what item they tipped for.
 
@@ -19,11 +19,11 @@ The following options can be specified in the bot setup/launch page.
 &bullet; <b>separator</b><br/>The symbol to display between items in the tip menu.<br/>
 &bullet; <b>delay</b><br/>The delay (in minutes) between tip menu displays.<br/>
 &bullet; <b>rate limit</b><br/>The number of messages the must have been entered into chat between menu displays.  Set this to 0 (zero) to disable rate limiting.<br/>
-&bullet; <b>verbose</b> {number}<br/>Be notified when users request the tip menu.<br/>
-&bullet; <b>welcome</b> {number}<br/>Should users entering the room receive a notification about the tip menu being active.<br/>
-&bullet; <b>weight</b> {number}<br/>Font weight of the text of the tip menu.<br/>
-&bullet; <b>color</b> {number}<br/>Font color of the tip menu.<br/>
-&bullet; <b>background</b> {number}<br/>Background color of the tip menu.<br/>
+&bullet; <b>verbose</b><br/>Be notified when users request the tip menu.<br/>
+&bullet; <b>welcome</b><br/>Should users entering the room receive a notification about the tip menu being active.<br/>
+&bullet; <b>weight</b><br/>Font weight of the text of the tip menu.<br/>
+&bullet; <b>color</b><br/>Font color of the tip menu.<br/>
+&bullet; <b>background</b><br/>Background color of the tip menu.<br/>
 
 The font and background colors MUST be valid HTML color codes. See https://html-color-codes.info for a list of valid color codes.
 
@@ -44,7 +44,15 @@ All menu items are always sorted by price so there is no need to order items on 
 
 The broadcaster can change the set of enabled menus at any time with chat commands.
 
-<h2>/tipmenu 1 3 5</h2>
+<h2>/tipmenu [1|2|3|4|5]]</h2>
 
-will select menus 1, 3, and 5.  Users will now see the new tip menu when they enter the /tipmenu command.
+Enables one, or more, new menus.  For example <em>/tipmenu 1 3 5</em> will disable the current menus and enable menus 1, 3, and 5.  Users will now see the new tip menu when they enter the /tipmenu command.
+
+<h2>/tipmenu [bar|kiss|heart|diamond|star|crown|bear|rose|fire]</h2>
+
+Change the separator symbol used when displaying the tip menu in chat.  For example <em>/tipmenu heart</em> will change the tip menu separator symbol to a heart (❤️).
+
+<h2>/tipmenu separators</h2>
+
+List the available separator symbols.
 
