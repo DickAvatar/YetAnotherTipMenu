@@ -166,7 +166,9 @@ class Item {
         return `${this.description} (${this.cost})`
     }
 }
-
+/*
+ * The comparison function used to sort menu items by cost.
+ */
 function compareItems(a,b) {
     return a.cost - b.cost
 }
@@ -353,7 +355,7 @@ function onMessage(message) {
             notify(broadcaster, `Menu separator changed to ${separator}`)
             return
         }
-        if (arg === 'list' || arg === 'separators') {
+        if (arg === 'sep' || arg === 'separators') {
             //let table_data = Object.keys(symbols).sort().map(k => [k, symbols[k]])
             let table_data = []
             Object.keys(symbols).forEach( k => {
@@ -376,6 +378,16 @@ function onMessage(message) {
             prefix = false
             current.ad = null
             notify(broadcaster, 'Displaying price after the item in the tip menu')
+            return
+        }
+        if (arg === 'list') {
+            for (let i = 0; i < menus.length; ++i) {
+                let menu = menus[i]
+                if (menu != null && menu.size() > 0) {
+                    let msg = `Menu ${i+1}: ${menu.list()}`
+                    cb.sendNotice(msg, broadcaster, background, color, weight)
+                }
+            }
             return
         }
 
@@ -540,4 +552,4 @@ function make_table(table, sep=' | ') {
     return monospace(string)
 }
 
-// cb.setTimeout(init, 200)
+cb.setTimeout(init, 200)
