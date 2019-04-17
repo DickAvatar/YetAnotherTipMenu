@@ -19,7 +19,7 @@
  * - Initial release.
  */
 
-const VERSION = '1.0.0-RC1'
+const VERSION = '1.0.0'
 
 // Symbols used as separators in the tip menu
 const symbols = {
